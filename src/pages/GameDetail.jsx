@@ -7,7 +7,7 @@ export default function GameDetail({ onAdd }) {
   const navigate = useNavigate();
   const [tab, setTab] = useState("review");
   const [reviews, setReviews] = useState([
-    { name: "홍길동", text: "재밌게 잘 했어요!" },
+    { name: "RIO", text: "게임 기대 됩니다!!" },
   ]);
   const [reviewName, setReviewName] = useState("");
   const [reviewText, setReviewText] = useState("");
@@ -39,14 +39,13 @@ export default function GameDetail({ onAdd }) {
   return (
     <div className="max-w-screen-xl mx-auto px-6 py-12 text-gray-900 font-sans">
       <div className="flex flex-col lg:flex-row gap-12">
-        {/* 좌측: 이미지 + 영상 */}
+        {/* 좌측: 이미지 및 영상 */}
         <div className="flex-1 space-y-6">
           <img
             src={game.image}
             alt={game.title}
             className="w-full rounded-xl shadow-md"
           />
-
           <div className="grid grid-cols-3 gap-4">
             <img
               src={game.image2}
@@ -54,16 +53,15 @@ export default function GameDetail({ onAdd }) {
               className="w-full rounded-xl shadow-md"
             />
           </div>
-
           {game.video && (
             <div className="mt-6">
-             <iframe
-              src={`${game.video}?rel=0`}
-              title="Game Trailer"
-              style={{ width: "50%", height: "1080px" }}
-              className="rounded-xl"
-              allow="autoplay; encrypted-media"
-              allowFullScreen
+              <iframe
+                src={`${game.video}?rel=0`}
+                title="Game Trailer"
+                style={{ width: "100%", height: "480px" }}
+                className="rounded-xl"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
               />
             </div>
           )}
@@ -72,8 +70,8 @@ export default function GameDetail({ onAdd }) {
         {/* 우측: 게임 정보 */}
         <div className="flex-1 space-y-8">
           <div>
-            <h1 className="text-3xl font-semibold mb-2">{game.title}</h1>
-            <p className="text-xl text-red-500 font-medium mb-6">
+            <h1 className="text-4xl font-bold mb-3">{game.title}</h1>
+            <p className="text-2xl text-red-500 font-semibold mb-6">
               {game.price.toLocaleString()}₩
             </p>
             <p className="text-base text-gray-700 mb-8">{game.description}</p>
@@ -97,13 +95,13 @@ export default function GameDetail({ onAdd }) {
           <div className="flex gap-4">
             <button
               onClick={() => onAdd(game)}
-              className="w-full bg-black text-white py-6 rounded-md hover:bg-gray-800 transition"
+              className="w-full bg-black text-white py-4 text-lg rounded-md hover:bg-gray-800 transition"
             >
               장바구니 담기
             </button>
             <button
               onClick={handleBuyNow}
-              className="w-full border border-black py-6 rounded-md hover:bg-gray-100 transition"
+              className="w-full border border-black py-4 text-lg rounded-md hover:bg-gray-100 transition"
             >
               바로 구매
             </button>
@@ -133,26 +131,38 @@ export default function GameDetail({ onAdd }) {
           ))}
         </div>
 
-        {/* 리뷰 작성 */}
+        {/* 리뷰 작성 탭 */}
         {tab === "review" && (
           <div>
-            <h3 className="text-lg font-semibold mb-4">리뷰 작성</h3>
+            <h3 className="text-xl font-bold mb-6">리뷰 작성</h3>
             <form onSubmit={handleReviewSubmit} className="space-y-6 mb-10">
-              <input
-                type="text"
-                value={reviewName}
-                onChange={(e) => setReviewName(e.target.value)}
-                placeholder="이름"
-                required
-                className="w-full border border-gray-300 rounded p-3"
-              />
-              <textarea
-                value={reviewText}
-                onChange={(e) => setReviewText(e.target.value)}
-                placeholder="리뷰를 작성해주세요."
-                required
-                className="w-full border border-gray-300 rounded p-3 h-32"
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  이름
+                </label>
+                <input
+                  type="text"
+                  value={reviewName}
+                  onChange={(e) => setReviewName(e.target.value)}
+                  placeholder="이름을 입력하세요"
+                  required
+                  className="w-full border border-gray-300 rounded p-3"
+                />
+              </div>
+
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  리뷰 내용
+                </label>
+                <textarea
+                  value={reviewText}
+                  onChange={(e) => setReviewText(e.target.value)}
+                  placeholder="리뷰를 작성해주세요."
+                  required
+                  className="w-full border border-gray-300 rounded-lg p-4 h-52 text-base resize-none focus:outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
+
               <div className="text-right">
                 <button
                   type="submit"
@@ -164,7 +174,7 @@ export default function GameDetail({ onAdd }) {
             </form>
 
             <div>
-              <h4 className="text-base font-semibold mb-3">작성된 리뷰</h4>
+              <h4 className="text-base font-semibold mb-4">작성된 리뷰</h4>
               {reviews.length === 0 ? (
                 <p className="text-gray-500 text-sm">리뷰가 없습니다.</p>
               ) : (
@@ -187,12 +197,14 @@ export default function GameDetail({ onAdd }) {
           </div>
         )}
 
+        {/* 상품문의 탭 */}
         {tab === "inquiry" && (
           <p className="text-base text-gray-700">
             상품에 대한 문의는 고객센터 또는 1:1 채팅을 이용해주세요.
           </p>
         )}
 
+        {/* 교환/환불 탭 */}
         {tab === "exchange" && (
           <ul className="list-disc pl-6 space-y-2 text-base text-gray-700">
             <li>수령 후 7일 이내 교환/반품 가능</li>
