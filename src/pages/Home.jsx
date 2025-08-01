@@ -34,39 +34,39 @@ export default function Home({ onAdd }) {
         id="games"
         className="text-2xl font-bold mb-6 text-gray-800 text-center"
       >
-        Best 5
+        예약중
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-9">
-        {games.slice(0, 9).map((game) => (
+      <div className="flex flex-col gap-6">
+        {games.slice(0, 6).map((game) => (
           <div
             key={game.id}
-            className="bg-white rounded-xl shadow hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col"
-          >
-            <img
+           className="bg-white rounded-xl shadow hover:shadow-md transition-all duration-200 overflow-hidden flex flex-col md:flex-row"
+    >
+           <img
               src={game.image}
               alt={game.title}
-              className="h-48 w-full object-cover"
+              className="h-full md:w-1/3 object-cover"
             />
             <div className="p-4 flex flex-col justify-between flex-1">
               <div>
-                <h3 className="text-lg font-semibold text-gray-800">
+                <h3 className="text-2xl font-bold text-gray-800">
                   {game.title}
                 </h3>
-                <p className="text-gray-600 mt-1">
+                <p className="text-xl text-gray-600 mt-2">
                   {game.price.toLocaleString()}₩
                 </p>
               </div>
-              <div className="mt-4 flex gap-2">
+              <div className="mt-6 flex gap-4">
                 <button
                   onClick={() => onAdd(game)}
-                  className="flex-1 px-3 py-2 bg-green-600 text-white text-sm rounded hover:bg-green-700"
+                  className="flex-1 px-4 py-3 bg-green-600 text-white text-base rounded hover:bg-green-700 font-semibold"
                 >
                   장바구니
                 </button>
                 <Link
                   to={`/game/${game.id}`}
-                  className="flex-1 px-3 py-2 bg-blue-500 text-white text-middle rounded text-center hover:bg-blue-600"
+                  className="flex-1 px-4 py-3 bg-blue-500 text-white text-base rounded text-center hover:bg-blue-600 font-semibold"
                 >
                   상세정보
                 </Link>
